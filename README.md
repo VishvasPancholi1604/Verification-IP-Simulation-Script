@@ -58,3 +58,12 @@ Get command line arguments from the user. Each CLArgument is optional.
 - **-r or --regression**
   - To merge the functional coverage .vdb files.
   - Example: `python run.py -e run -r`
+
+-----------------
+## How to Use??
+-----------------
+
+- It is mendatory to set-up 3 variables in the script before using it:
+  -  project_name          : Top-module Prefix
+  -  working_sim_directory : path to your simulation directory
+  -  testcase_directory    : path to your testcases directory
