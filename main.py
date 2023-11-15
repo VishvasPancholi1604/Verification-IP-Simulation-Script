@@ -79,9 +79,6 @@ questa_commands = {
 #   -l  or --logfile
 #     - takes no argument, user only has to mention the flag [optional]
 #     - used to create log file of testcase/s
-#   -s  or --status
-#     - takes no argument, user only has to mention the flag [optional]
-#     - used to see the status of all the testcases after run
 #   -n  or --name
 #     - takes one argument which is the name of the testcase
 #     - if enabled, script won't ask which testcase to run.
@@ -93,12 +90,6 @@ questa_commands = {
 #   -db or --debug
 #     - to debug the code (commands will be printed)
 #     - log file won't be created, preffered to detect infinite loops in output
-#   -c  or --custom
-#     - for configurable testcase
-#     - reads testcases from database file
-#   -ci or --custominput
-#     - takes frame inputs from user
-#     - doesn't read from the database file
 #   -q  or --questa
 #     - to compile and/or run VIP on MentorGrafix's Questasim
 def get_args():
@@ -116,14 +107,10 @@ def get_args():
                         help='to give testname from CLI input')
     parser.add_argument('-s', '--status', action='store_true',
                         help='to see the status of each selected testcase at the end of simulation')
-    parser.add_argument('-c', '--custom', action='store_true',
-                        help='to run the custom testcase')
     parser.add_argument('-r', '--regression', action='store_true',
                         help='to merge the functional coverage of each testcases')
     parser.add_argument('-db', '--debug', action='store_true',
                         help='debug mode prints commands')
-    parser.add_argument('-ci', '--custominput', action='store_true',
-                        help='to provide custom testcase input')
     parser.add_argument('-q', '--questa', action='store_true', help='to compile/run in questasim')
     args = parser.parse_args()
 
