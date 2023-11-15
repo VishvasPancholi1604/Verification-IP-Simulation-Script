@@ -1,4 +1,4 @@
-## How to Use the script??
+# How to Use the script??
 -----------------
 
 - It is mendatory to set-up 3 variables in the script before using it:
