@@ -27,25 +27,34 @@ Get command line arguments from the user. Each CLArgument is optional.
 - **-w or --waveform**
   - Takes no argument, the user only has to mention the flag [optional].
   - If only 1 testcase is selected by the user to run, the waveform will open by default.
+  - Example: `python run.py -e run -w`
 
 - **-l or --logfile**
   - Takes no argument, the user only has to mention the flag [optional].
   - Used to create a log file of testcase/s.
+  - Example: `python run.py -e run -l`
 
 - **-n or --name**
   - Takes one argument which is the name of the testcase.
   - If enabled, the script won't ask which testcase to run.
   - Returns the list of testcases if the given testcase name is incorrect.
-
-- **-s or --status**
-  - To observe the status of each testcase [pass/fail].
-
-- **-r or --regression**
-  - To merge the functional coverage .vdb files.
+  - Example: `python run.py -e run -n i2c_multimaster_arbitration_test_c`
 
 - **-db or --debug**
   - To debug the code (commands will be printed).
   - The log file won't be created, preferred to detect infinite loops in output.
+  - Example: `python run.py -e run -db`
 
 - **-q or --questa**
   - To compile and/or run VIP on MentorGrafix's Questasim.
+  - Example: `python run.py -e run -q`
+
+## Work in Progress
+
+- **-s or --status**
+  - To observe the status of each testcase [pass/fail].
+  - Example: `python run.py -e run -s`
+
+- **-r or --regression**
+  - To merge the functional coverage .vdb files.
+  - Example: `python run.py -e run -r`
