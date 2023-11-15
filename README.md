@@ -42,7 +42,7 @@ Get command line arguments from the user. Each CLArgument is optional.
 
 - **-db or --debug**
   - To debug the code (commands will be printed).
-  - The log file won't be created, preferred to detect infinite loops in output.
+  - preferred to detect infinite loops in output, will print some extra debugging-info as wekk.
   - Example: `python run.py -e run -db`
 
 - **-q or --questa**
