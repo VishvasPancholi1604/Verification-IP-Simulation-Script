@@ -23,16 +23,17 @@ json_directory = 'DATABASE'
 testcases_status_file = 'testcases_status_database.json'
 
 # setting up paths
-working_sim_directory = 'D:\Questa\Projects\I2c FINAL\ei_i2c\DEVELOPMENT\SIM'
-testcase_directory    = 'D:\Questa\Projects\I2c FINAL\ei_i2c\DEVELOPMENT\TEST'
+working_sim_directory = '/home/vishvas.pancholi/Documents/I2C FINAL/DEVELOPMENT/SIM'
+testcase_directory    = '/home/vishvas.pancholi/Documents/I2C FINAL/DEVELOPMENT/TEST'
 
 # testcase database path
 # testcase database dictionary
 testDB_path = os.path.join(working_sim_directory, json_directory, testcases_status_file)
 testDB_json = {}
 
-# ignore testcases in regression
-# testcases present in below list will be ignored
+# ignore testcases during simulation
+# testcases present in below list will be 
+# ignored in regression
 ignore_testcases = []
 
 # list for passed and failed testcases
@@ -40,10 +41,11 @@ passed_testcases = failed_testcases = []
 
 # synopsys VCS commands
 vcs_commands = {
-    'compile'   : 'vcs -full64 -debug_access+r -sverilog +acc +vpi +incdir+/home/hitesh.patel/UVM/UVM_1.2/src /home/hitesh.patel/UVM/UVM_1.2/src/uvm.sv /home/hitesh.patel/UVM/UVM_1.2/src/dpi/uvm_dpi.cc -CFLAGS -DVCS -assert svaext '
+    'compile'   : 'vcs -full64 -debug_access+r -sverilog -debug_access+r+w+nomemcbk -debug_region+cell +vpi +incdir+/home/hitesh.patel/UVM/UVM_1.2/src /home/hitesh.patel/UVM/UVM_1.2/src/uvm.sv /home/hitesh.patel/UVM/UVM_1.2/src/dpi/uvm_dpi.cc -CFLAGS -DVCS -assert svaext '
                   + f'-timescale={timescale} '
                   + '+incdir+../RTL/ +incdir+../ENV/ +incdir+../TEST/ +incdir+../SRC ../TOP/'
-                  + 'vcs+lic+wait',
+                  + f'{top_name}'
+                  + ' +vcs+lic+wait',
     'simulate'  : './simv'
 }
 
@@ -123,10 +125,9 @@ def fire_cmd(execute_this = '', logFile = '', testStatus = False):
         print(execute_this)
     if logFile == '':
         process = subprocess.Popen(execute_this, shell=True, cwd=working_sim_directory, stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE, text=True, bufsize=1, universal_newlines=True)
+                                   stderr=subprocess.PIPE, bufsize=1, universal_newlines=True)
         for line in process.stdout:
-            if args.debug == True:
-                print(line, end='')
+            print(line, end='')
             if testStatus == True:
                 if 'TEST PASS' in line:
                     testcase_state = 'PASS'
@@ -138,7 +139,7 @@ def fire_cmd(execute_this = '', logFile = '', testStatus = False):
         logPath = os.path.join(working_sim_directory, log_output, logFile)
         with open(logPath, 'w') as logOutput:
             process = subprocess.Popen(execute_this, shell=True, cwd=working_sim_directory, stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE, text=True, bufsize=1, universal_newlines=True)
+                                       stderr=subprocess.PIPE, bufsize=1, universal_newlines=True)
             for line in process.stdout:
                 if args.debug == True:
                     print(line, end='')
@@ -174,6 +175,7 @@ def compile():
 # executes on the terminal
 def simulate_test(testname, verbosity, clargs = ''):
     global testDB_path, testDB_json
+
     uvm_runtime_command =  f' +UVM_TESTNAME={testname} +UVM_VERBOSITY={verbosity} {clargs}'
     logFile = '' if args.logfile == False else f"{testname[:-len('_c')]}.log"
     testStatus = 'NONE'
@@ -238,7 +240,7 @@ def readJSONfile(testDB_path):
     if os.path.isfile(testDB_path) and os.path.getsize(testDB_path):
         with open(testDB_path, 'r') as jsonFile:
             testDB_json = json.load(jsonFile)
-        return testDB_json
+    return testDB_json
 
 # dump testcases data into json file
 def writeJSONfile(testDB_path, testDB_json):
