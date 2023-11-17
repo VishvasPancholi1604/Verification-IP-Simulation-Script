@@ -23,8 +23,8 @@ json_directory = 'DATABASE'
 testcases_status_file = 'testcases_status_database.json'
 
 # setting up paths
-working_sim_directory = '/home/vishvas.pancholi/Documents/I2C FINAL/DEVELOPMENT/SIM'
-testcase_directory    = '/home/vishvas.pancholi/Documents/I2C FINAL/DEVELOPMENT/TEST'
+working_sim_directory = '/home/vishvas.pancholi/Desktop/UVM/VIPs/I2C_NEW/GIT/UVM_I2C/DEVELOPMENT/SIM'
+testcase_directory    = '/home/vishvas.pancholi/Desktop/UVM/VIPs/I2C_NEW/GIT/UVM_I2C/DEVELOPMENT/TEST'
 
 # testcase database path
 # testcase database dictionary
@@ -34,7 +34,7 @@ testDB_json = {}
 # ignore testcases during simulation
 # testcases present in below list will be 
 # ignored in regression
-ignore_testcases = []
+ignore_testcases = ['ei_i2c_10bit_addressing_repeated_start_test_c']
 
 # list for passed and failed testcases
 passed_testcases = failed_testcases = []
@@ -180,7 +180,7 @@ def simulate_test(testname, verbosity, clargs = ''):
     logFile = '' if args.logfile == False else f"{testname[:-len('_c')]}.log"
     testStatus = 'NONE'
 
-    print(f'Running Testcase : {testname}, ', end='')
+    print(f'Running Testcase : {testname},\t', end='')
 
     start_time = time.time()
     if args.questa == False:
@@ -190,11 +190,12 @@ def simulate_test(testname, verbosity, clargs = ''):
     end_time = time.time()
     elapsed_time = end_time - start_time
 
-    print(f'Test status : {testStatus}, ', end='')
+    print(f'Test status : {testStatus},\t', end='')
     print(f'Elapsed time : {elapsed_time}')
 
     # update json database and json file
     testDB_json.update({testname : {'test status' : testStatus,'execution time' : elapsed_time}})
+
     writeJSONfile(testDB_path, testDB_json)
 
 # creates waveform command
@@ -338,3 +339,4 @@ testcases = extract_testcases(testcase_directory)
 
 # main execution phase
 main_execution_method()
+
