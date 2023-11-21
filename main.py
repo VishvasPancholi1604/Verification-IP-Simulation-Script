@@ -273,6 +273,7 @@ def test_selection_method():
             if run_test_input == 'all':
                 for testname in testcases:
                     simulate_test(testname, verbosity)
+                ask_for_wave_selection()
             else:
                 run_test_input = run_test_input.split(',')
                 for test in run_test_input:
@@ -282,7 +283,10 @@ def test_selection_method():
                             simulate_test(testcases[idx - 1], verbosity)
                     else:
                         simulate_test(testcases[int(test) - 1], verbosity)
-            ask_for_wave_selection()
+                if len(run_test_input) > 1:
+                    ask_for_wave_selection()
+                else:
+                    waveform(run_test_input[0], verbosity)
         else:
             simulate_test(f'ei_{project_name}_base_test_c', verbosity)
             if args.waveform == True:
