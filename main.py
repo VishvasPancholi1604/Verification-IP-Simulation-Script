@@ -286,7 +286,8 @@ def test_selection_method():
                 if len(run_test_input) > 1:
                     ask_for_wave_selection()
                 else:
-                    waveform(run_test_input[0], verbosity)
+                    if args.waveform == True:
+                        waveform(testcases[int(run_test_input[0])-1], verbosity)
         else:
             simulate_test(f'ei_{project_name}_base_test_c', verbosity)
             if args.waveform == True:
@@ -343,4 +344,3 @@ testcases = extract_testcases(testcase_directory)
 
 # main execution phase
 main_execution_method()
-
