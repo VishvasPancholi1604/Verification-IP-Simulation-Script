@@ -219,6 +219,18 @@ def print_testcases(testcase_list):
         print(str(i + 1) + '. ' + testcase_list[i])
     print()
 
+def print_test_status(testcases : dict):
+    print('-'*(71))
+    print('testname'.center(30), 'status'.rjust(21), 'elapsed time'.rjust(15))
+    print('-'*(71))
+    for key in testcases:
+        print(
+                key.ljust(40),
+                testcases[key]['status'].rjust(10),
+                testcases[key]['elapsed time'].rjust(11)
+            )
+    print('-'*(71))
+
 # extracts testcase names from 'TEST'
 # directory provided in the argument
 # appends '_c' at last and removes .sv extension
