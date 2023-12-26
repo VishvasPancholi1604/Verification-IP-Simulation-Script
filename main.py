@@ -51,7 +51,7 @@ vcs_commands = {
 
 # MentorGraphics Questasim commands
 questa_commands = {
-    'compile'  : 'vlog ..\SRC\ei_i2c_package.sv ..\TOP\ei_i2c_top.sv +incdir+..\SRC +incdir+..\ENV +incdir+..\TEST',
+    'compile'  : f'vlog ..\SRC\ei_{project_name}_package.sv ..\TOP\ei_{project_name}_top.sv +incdir+..\SRC +incdir+..\ENV +incdir+..\TEST',
     'simulate' : f'vsim {top_name[:-3]} -32 -do \"run -all; exit\" '
 }
 
